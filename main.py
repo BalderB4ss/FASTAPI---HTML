@@ -4,6 +4,8 @@ from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
+# python -m uvicorn main:app --reload
+
 app = FastAPI(title="Lista de alunos")
 
 # Definir a pasta onde está os html
@@ -17,12 +19,13 @@ alunos = [
     {"nome":"Murilo", "nota":6.5},
     {"nome":"Joana", "nota":9.5},
     {"nome":"Franscisco", "nota":0.5},
+    {"nome":"Gabriel", "nota":1.5},
 ]
 
 # Rota principal
 @app.get("/", response_class=HTMLResponse)
 def home(request: Request):
-    return templates.TamplateResponde(
+    return templates.TemplateResponse(
         "index.html",
-        {request:request, "lista_alunos":alunos}
+        {"request":request, "lista_alunos":alunos}
     )
